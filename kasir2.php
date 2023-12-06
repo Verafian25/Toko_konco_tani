@@ -138,7 +138,8 @@ $jsArray1 = "var nama_barang = new Array();";
                                             $tgl = $data['tgl_input'];
 
 
-                                            $keluar = "INSERT INTO barang_keluar VALUES ('','$nama','$qty','$tgl')";
+                                            $keluar = "INSERT INTO barang_keluar (id_keluar, nama_barang, stock, tgl_keluar) 
+                                                        VALUES (Null,'$nama','$qty','$tgl')";
                                             mysqli_query($conn, $keluar);
 
                                             // var_dump(mysqli_fetch_array($hasil)['nama_barang']);
