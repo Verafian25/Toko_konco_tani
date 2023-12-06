@@ -10,7 +10,8 @@ if (isset($_POST["tambah-users"])) {
     $telp = $_POST["telp"];
     $role = $_POST["role"];
 
-    $query = "INSERT INTO users VALUES ('','$nama_toko','$username','$password','$alamat','$telp','$role')";
+    $query = "INSERT INTO users (id_login, nama_toko, username, password, alamat, telp, role)
+             VALUES (Null,'$nama_toko','$username','$password','$alamat','$telp','$role')";
     mysqli_query($conn, $query);
     
     echo "<script>alert('Berhasil tambah user');</script>";
@@ -55,7 +56,7 @@ if (isset($_GET['hapus-users'])) {
 if (isset($_POST["tambah-kategori"])) {
     $nama_kategori = $_POST["nama_kategori"];
 
-    $query = "INSERT INTO kategori VALUES ('','$nama_kategori')";
+    $query = "INSERT INTO kategori (id_kategori, nama_kategori) VALUES (Null,'$nama_kategori')";
     mysqli_query($conn, $query);
     
     echo "<script>alert('Berhasil tambah kategori');</script>";
@@ -73,7 +74,7 @@ if(isset($_POST['edit-kategori'])){
     ";
     mysqli_query($conn, $query);
 
-    echo "<script>alert('Berhasil mengedit kategori');</script>";
+    echo "<script>alert('Data kategori berhasil diubah');</script>";
     echo "<script>window.location.href = 'kategori.php';</script>";
 }
 
@@ -84,7 +85,7 @@ if (isset($_GET['hapus-kategori'])) {
     $query = "DELETE FROM kategori WHERE id_kategori='$id_kategori'";
     mysqli_query($conn, $query);
     
-    echo "<script>alert('Data kategori berhasil diubah');</script>";
+    echo "<script>alert('Data kategori berhasil dihapus');</script>";
     echo "<script>window.location.href = 'kategori.php';</script>";
 }
 
@@ -92,7 +93,7 @@ if (isset($_GET['hapus-kategori'])) {
 if (isset($_POST["tambah-satuan"])) {
     $nama_satuan = $_POST["nama_satuan"];
 
-    $query = "INSERT INTO satuan VALUES ('','$nama_satuan')";
+    $query = "INSERT INTO satuan (id_satuan, nama_satuan) VALUES (Null,'$nama_satuan')";
     mysqli_query($conn, $query);
     
     echo "<script>alert('Berhasil tambah satuan');</script>";
@@ -110,7 +111,7 @@ if(isset($_POST['edit-satuan'])){
     ";
     mysqli_query($conn, $query);
 
-    echo "<script>alert('Berhasil mengedit satuan');</script>";
+    echo "<script>alert('Data satuan berhasil diubah');</script>";
     echo "<script>window.location.href = 'satuan.php';</script>";
 }
 
@@ -133,8 +134,8 @@ if (isset($_POST["tambah-barang"])) {
     $nama_satuan = $_POST["nama_satuan"];
     $harga_barang = $_POST["harga_barang"];
 
-    $query = "INSERT INTO `barang` 
-        (`id_barang`, `nama_barang`,`nama_kategori`, `stock`, `nama_satuan`, `harga_barang`) 
+    $query = "INSERT INTO barang
+        (id_barang, nama_barang, nama_kategori, stock, nama_satuan, harga_barang) 
         VALUES 
         (NULL, '$nama_barang','$nama_kategori', '$stock', '$nama_satuan', '$harga_barang');";
 
@@ -161,7 +162,7 @@ if(isset($_POST['edit-barang'])){
     ";
     mysqli_query($conn, $query);
 
-    echo "<script>alert('Berhasil mengedit barang');</script>";
+    echo "<script>alert('Data barang berhasil diubah');</script>";
     echo "<script>window.location.href = 'barang.php';</script>";
 }
 
@@ -182,7 +183,8 @@ if (isset($_POST['tambah-stock'])) {
     $stock = $_POST['stock'];
     $tgl_masuk = date("Y-m-d");
 
-    $b_masuk = "INSERT INTO barang_masuk VALUES ('','$nama_barang','$stock','$tgl_masuk')";
+    $b_masuk = "INSERT INTO barang_masuk (id_masuk, nama_barang, stock, tgl_masuk) 
+                VALUES  (Null,'$nama_barang','$stock','$tgl_masuk')";
     mysqli_query($conn,$b_masuk);
 
     $tambahstock = "UPDATE barang SET stock = stock + '$stock' WHERE nama_barang = '$nama_barang'";
@@ -214,7 +216,8 @@ if (isset($_POST['tambah-keranjang'])) {
     //mengambil stock dari tabel barang
     $stock = $data['stock']; 
     $total_harga = $jumlah_beli * $harga_barang;
-    $keranjang = "INSERT INTO keranjang VALUES ('','$nama_barang','$harga_barang','$stock','$jumlah_beli','$total_harga')";
+    $keranjang = "INSERT INTO keranjang (id_keranjang, nama_barang, harga_barang, quantity, subtotal, tgl_input, no_transaksi, bayar, kembalian) 
+                    VALUES (Null,'$nama_barang','$harga_barang','$stock','$jumlah_beli','$total_harga')";
     mysqli_query($conn, $keranjang);
     
     header("location: kasir1.php");
@@ -238,7 +241,8 @@ if (isset($_POST['tambah-keluar'])) {
         // Cek apakah stok cukup
         if ($stock <= $available_stock) {
             // Lanjutkan dengan operasi penambahan dan pembaruan
-            $b_keluar = "INSERT INTO barang_keluar VALUES (NULL,'$nama_barang','$stock','$tgl_keluar')";
+            $b_keluar = "INSERT INTO barang_keluar (id_keluar, nama_barang, stock, tgl_keluar) 
+                        VALUES (NULL,'$nama_barang','$stock','$tgl_keluar')";
             mysqli_query($conn, $b_keluar);
 
             $kurangstock = "UPDATE barang SET stock = stock - '$stock' WHERE nama_barang = '$nama_barang'";
