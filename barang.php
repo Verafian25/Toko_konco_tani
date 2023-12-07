@@ -2,10 +2,7 @@
     session_start();
     require_once ('config/koneksi.php');
 
-	if (!isset($_SESSION['role'])) {
-		echo "<script>alert('silahkan login terlebih dahulu')</script>";
-		echo "<script>document.location.href = 'login.php'</script>";
-	}
+	require_once ('cek.php');
 	
     $query = "SELECT * FROM kategori";
     $barang = mysqli_query($conn, $query);

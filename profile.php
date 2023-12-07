@@ -3,10 +3,7 @@
     require_once ('config/koneksi.php');
 
 	// cek apakah yang mengakses halaman ini sudah login
-	if (!isset($_SESSION['role'])) {
-		echo "<script>alert('silahkan login terlebih dahulu')</script>";
-		echo "<script>document.location.href = 'login.php'</script>";
-	}
+	require_once ('cek.php');
 
     $result1 = mysqli_query($conn, "SELECT * FROM users");
     while($data = mysqli_fetch_array($result1))

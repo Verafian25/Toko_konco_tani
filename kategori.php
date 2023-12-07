@@ -1,10 +1,7 @@
 <?php
-require_once 'config/koneksi.php';
 session_start();
-    if (!isset($_SESSION['role'])) {
-        echo "<script>alert('silahkan login terlebih dahulu')</script>";
-        echo "<script>document.location.href = 'login.php'</script>";
-    }
+require_once 'config/koneksi.php';
+require_once ('cek.php');
 $no = 1;
 ?>
 

@@ -2,11 +2,9 @@
     session_start();
     require_once ('config/koneksi.php');
 
+    require_once ('cek.php');
+
 	// cek apakah yang mengakses halaman ini sudah login
-	if (!isset($_SESSION['role'])) {
-		echo "<script>alert('silahkan login terlebih dahulu')</script>";
-		echo "<script>document.location.href = 'login.php'</script>";
-	}
 
 	$data_barang = mysqli_query($conn, "SELECT * FROM barang");
 	$jumlah_barang = mysqli_num_rows($data_barang);
