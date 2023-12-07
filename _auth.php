@@ -16,13 +16,8 @@ if (isset($_POST['login'])) {
             $_SESSION['username'] = $username;
             $_SESSION['role'] = 'admin';
 
-            echo "<script>alert('Selamat datang admin')</script>";
-            echo "<script>document.location.href = 'index.php'</script>";
-            die;
+            header("Location: index.php");
         }
-        echo "<script>alert('Username atau Password salah')</script>";
-        echo "<script>document.location.href = 'login.php'</script>";
-        die;
     } else if($data['role']=="kasir") {
         $query = "SELECT * FROM users WHERE username = '$username'";
         $dataUser = mysqli_query($conn, $query);
@@ -42,9 +37,7 @@ if (isset($_POST['login'])) {
             $_SESSION['role'] = 'kasir';
             $_SESSION['id_login'] = $data['id_login'];
 
-            echo "<script>alert('Berhasil login')</script>";
-            echo "<script>document.location.href = 'kasir2.php'</script>";
-            die;
+            header("Location: kasir2.php");
         }
     } else {
         $query = "SELECT * FROM users WHERE username = '$username'";
@@ -65,9 +58,7 @@ if (isset($_POST['login'])) {
             $_SESSION['role'] = 'pemilik';
             $_SESSION['id_login'] = $data['id_login'];
 
-            echo "<script>alert('Berhasil login')</script>";
-            echo "<script>document.location.href = 'index.php'</script>";
-            die;
+            header("Location: index.php");
         }
     }
 }

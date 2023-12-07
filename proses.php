@@ -56,7 +56,7 @@ if (isset($_GET['hapus-users'])) {
 if (isset($_POST["tambah-kategori"])) {
     $nama_kategori = $_POST["nama_kategori"];
 
-    $query = "INSERT INTO kategori (id_kategori, nama_kategori) VALUES (Null,'$nama_kategori')";
+    $query = "INSERT INTO kategori (id_kategori, nama_kategori) VALUES (Null,$nama_kategori)";
     mysqli_query($conn, $query);
     
     echo "<script>alert('Berhasil tambah kategori');</script>";
