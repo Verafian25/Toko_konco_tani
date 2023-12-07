@@ -1,13 +1,9 @@
 <?php include 'layouts/header.php';?>
+
 <?php 
-
-// cek apakah yang mengakses halaman ini sudah login
-require_once('cek.php');
-
 $barang = mysqli_query($conn, "SELECT * FROM barang");
 $jsArray = "var harga_barang = new Array();";
 $jsArray1 = "var nama_barang = new Array();";  
-
 ?>
 
     <div class="app-content pt-3">
@@ -85,7 +81,7 @@ $jsArray1 = "var nama_barang = new Array();";
                                 {
                                     return number_format($nilai, 0, ',', '.');
                                 }
-                                $tgl = date("Y-m-d");
+                                $tgl = date("Gis");
                                 $huruf = "AD";
                                 $kodeCart = $huruf . $tgl;
                                 ?>
@@ -136,7 +132,7 @@ $jsArray1 = "var nama_barang = new Array();";
 
 
                                             $keluar = "INSERT INTO barang_keluar (id_keluar, nama_barang, stock, tgl_keluar) 
-                                                        VALUES (Null,'$nama','$qty','$tgl')";
+                                                        VALUES (NUll,'$nama','$qty','$tgl')";
                                             mysqli_query($conn, $keluar);
 
                                             // var_dump(mysqli_fetch_array($hasil)['nama_barang']);
@@ -162,33 +158,29 @@ $jsArray1 = "var nama_barang = new Array();";
                     <div class="col-md-6">
                         <div class="card" id="print">
                             <div class="card-header bg-white border-0 pb-0 pt-4">
-                                <?php
-
-                                $username = $_SESSION['username'];
-                                $toko = mysqli_query($conn, "SELECT * FROM users where username = '$username'");
-                                while ($dat = mysqli_fetch_array($toko)) {
-                                    $username = $dat['username'];
-                                    $nama_toko = $dat['nama_toko'];
-                                    $alamat = $dat['alamat'];
-                                    $telp = $dat['telp'];
-                                    echo "<h5 class='card-tittle mb-0 text-center'><b>$nama_toko</b></h5>
-                                    <p class='m-0 small text-center'>$alamat</p>
-                                    <p class='small text-center'>Telp. $telp</p>";
-                                }
-                                ?>
-                                <div class="row">
-                                    <div class="col-8 col-sm-9 pr-0">
-                                        <ul class="pl-0 small" style="list-style: none;text-transform: uppercase;">
-                                            <li>KASIR : <?php echo $username ?></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-4 col-sm-3 pl-0">
-                                        <ul class="pl-0 small" style="list-style: none;">
-                                            <li>TGL : <?php echo  date("Y-m-d"); ?></li>
-                                            <li>JAM : <?php echo  date("H:i:s"); ?></li>
-                                        </ul>
-                                    </div>
+                             
+                                    <h5 class='card-tittle mb-3 text-center'><b>TOKO KONCO TANI</b></h5>
+                                
+                            <div class="row">
+                                <div class="col-8 col-sm-9 pr-0">
+                                    <ul class="pl-0 small" style="list-style: none;text-transform: uppercase;">
+                                        <li>NOTA : <?php 
+                                            $notrans = mysqli_query($conn,"SELECT * FROM keranjang ORDER BY no_transaksi ASC LIMIT 1");
+                                            while($dat2 = mysqli_fetch_array($notrans)){
+                                                $notransaksi = $dat2['no_transaksi'];
+                                                echo "$notransaksi";
+                                            }
+                                        ?></li>
+                                        <li>KASIR : Kasir</li>
+                                    </ul>
                                 </div>
+                                <div class="col-4 col-sm-3 pl-0">
+                                <ul class="pl-0 small" style="list-style: none;">
+                                        <li>TGL : <?php echo  date("j-m-Y");?></li>
+                                        <li>JAM : <?php echo  date("G:i:s");?></li>
+                                    </ul>
+                                </div>
+                            </div>
                             </div>
                             <div class="card-body small pt-0">
                                 <hr class="mt-0">
